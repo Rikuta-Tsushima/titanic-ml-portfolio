@@ -5,8 +5,8 @@
 
 ## 前処理（trainのみでfit → 両データにtransform）
 - Embarked: "C" で補完（方針固定）
-- Age: `Pclass×Sex` の中央値で補完
-- Fare: `Pclass×Embarked` の中央値で補完
+- Age: `Pclass×Sex` の中間値で補完
+- Fare: `Pclass×Embarked` の中間値で補完
 - 変換: `Fare_log1p`
 
 ## 特徴量
@@ -18,7 +18,7 @@
 - Logistic Regression: ACC ≈ **0.8305**, AUC ≈ 0.8657
 - SVC (RBF, tuned):  ACC ≈ 0.8294,  AUC ≈ 0.8658
 - RandomForest (tuned): **ACC ≈ 0.8462**, **AUC ≈ 0.8741**
-- Kaggle Public LB（例）: 0.76076
+- Kaggle Public LB: 0.76076
 
 ## 再現方法
 1) `pip install -r requirements.txt`  
@@ -27,5 +27,5 @@
 
 ## 学び / 工夫 / 反省
 - **fit と transform を分離**してリーク防止（ColumnTransformer + Pipeline）
-- `merge` によるグループ中央値補完、`FarePerPerson_log1p` でグループ購入の歪み補正
+- `merge` によるグループ中間値補完、`FarePerPerson_log1p` でグループ購入の歪み補正
 - しきい値調整や汎化重視のRF設定は今後の改善ポイント
