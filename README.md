@@ -9,7 +9,7 @@
 - Fare: `Pclass×Embarked` の中央値で補完
 - 変換: `Fare_log1p`
 
-## 特徴量（Tier1・Titleなし）
+## 特徴量
 - FamilySize, IsAlone, WomanChild, MotherLite  
 - TicketGroupSize, TicketIsShared, FarePerPerson_log1p  
 - Pclass_Sex（相互作用カテゴリ）
