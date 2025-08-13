@@ -180,7 +180,6 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-
 /data/
 *.csv
 .ipynb_checkpoints/
@@ -188,5 +187,3 @@ cython_debug/
 __pycache__/
 .venv/
 *.pyc
-
-
