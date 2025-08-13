@@ -1,12 +1,31 @@
 # Titanic Survival Prediction — Portfolio
 
-教科書どおりの前処理と3モデル（LogReg / SVC / RandomForest）を同一条件で比較。
-- **前処理**: trainのみで統計をfit → train/testへ同じtransform  
-  - Age: Pclass×Sexの中央値 / Fare: Pclass×Embarkedの中央値  
-  - 変換: `Fare_log1p`
-- **特徴(Tier1, Titleなし)**: FamilySize, IsAlone, WomanChild, MotherLite,
-  TicketGroupSize, TicketIsShared, FarePerPerson_log1p, Pclass_Sex
-- **CV(5-fold)**: LogReg ACC≈0.8305 / SVC ACC≈0.8294 / RF ACC≈0.8462, AUCはRFが最良
-- **Kaggle例**: 0.76076
+教科書どおりの前処理＋3モデル（LogReg / SVC / RandomForest）で比較。
+**目的**: リーク対策を守った再現性あるワークフローを作り、面接で説明できる形にする。
 
-再現: `pip install -r requirements.txt`、`data/train.csv` と `data/test.csv` を配置、`notebooks/` を上から実行。
+## 前処理（trainのみでfit → 両データにtransform）
+- Embarked: "C" で補完（方針固定）
+- Age: `Pclass×Sex` の中央値で補完
+- Fare: `Pclass×Embarked` の中央値で補完
+- 変換: `Fare_log1p`
+
+## 特徴量（Tier1・Titleなし）
+- FamilySize, IsAlone, WomanChild, MotherLite  
+- TicketGroupSize, TicketIsShared, FarePerPerson_log1p  
+- Pclass_Sex（相互作用カテゴリ）
+
+## モデル比較（Stratified 5-fold CV）
+- Logistic Regression: ACC ≈ **0.8305**, AUC ≈ 0.8657
+- SVC (RBF, tuned):  ACC ≈ 0.8294,  AUC ≈ 0.8658
+- RandomForest (tuned): **ACC ≈ 0.8462**, **AUC ≈ 0.8741**
+- Kaggle Public LB（例）: 0.76076
+
+## 再現方法
+1) `pip install -r requirements.txt`  
+2) `data/train.csv`, `data/test.csv` を配置（リポには含めません）  
+3) `notebooks/titanic_eda.ipynb` を実行（順次追加予定）
+
+## 学び / 工夫 / 反省
+- **fit と transform を分離**してリーク防止（ColumnTransformer + Pipeline）
+- `merge` によるグループ中央値補完、`FarePerPerson_log1p` でグループ購入の歪み補正
+- しきい値調整や汎化重視のRF設定は今後の改善ポイント
