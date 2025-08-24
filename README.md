@@ -1,7 +1,8 @@
 # Titanic Survival Prediction — Portfolio
 
 教科書どおりの前処理＋3モデル（LogReg / SVC / RandomForest）で比較。
-**目的**: リーク対策を守った再現性あるワークフローを作り、面接で説明できる形にする。
+
+**目的**:　データ分析における基礎スキルの習得を目指す
 
 ## EDAで気づいたこと（傾向と解釈）
 
@@ -46,11 +47,6 @@
 - SVC (RBF, tuned):  ACC ≈ 0.8294,  AUC ≈ 0.8658
 - RandomForest (tuned): **ACC ≈ 0.8462**, **AUC ≈ 0.8741**
 - Kaggle Public LB: 0.76076
-
-## 再現方法
-1) `pip install -r requirements.txt`  
-2) `data/train.csv`, `data/test.csv` を配置（リポには含めません）  
-3) `notebooks/titanic_eda.ipynb` を実行（順次追加予定）
 
 ## 学び
 - **fit と transform を分離**してリーク防止（ColumnTransformer + Pipeline）
